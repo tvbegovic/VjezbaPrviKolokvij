@@ -63,6 +63,7 @@
             this.btnUcitaj.TabIndex = 31;
             this.btnUcitaj.Text = "Učitaj";
             this.btnUcitaj.UseVisualStyleBackColor = true;
+            this.btnUcitaj.Click += new System.EventHandler(this.btnUcitaj_Click);
             // 
             // btnSpremi
             // 
@@ -72,6 +73,7 @@
             this.btnSpremi.TabIndex = 32;
             this.btnSpremi.Text = "Spremi";
             this.btnSpremi.UseVisualStyleBackColor = true;
+            this.btnSpremi.Click += new System.EventHandler(this.btnSpremi_Click);
             // 
             // dgvPolaznici
             // 

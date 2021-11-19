@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Zadatak2
 {
@@ -60,6 +61,40 @@ namespace Zadatak2
         {
             dgvPolaznici.DataSource = null;
             dgvPolaznici.DataSource = polaznici;
+        }
+
+        private void btnSpremi_Click(object sender, EventArgs e)
+        {
+            var datoteka = new StreamWriter("polaznici.txt");
+            foreach (var polaznik in polaznici)
+            {
+                datoteka.WriteLine("{0};{1};{2};{3};{4}",
+                    polaznik.Ime, polaznik.Prezime, polaznik.Oib,
+                    polaznik.DatumUpisa, polaznik.Dug);
+            }
+            datoteka.Close();
+        }
+
+        private void btnUcitaj_Click(object sender, EventArgs e)
+        {
+            polaznici.Clear();
+            var redci = File.ReadAllLines("polaznici.txt");
+            foreach (var red in redci)
+            {
+                var stupci = red.Split(';');
+                var polaznik = new Polaznik();
+                polaznik.Ime = stupci[0];
+                polaznik.Prezime = stupci[1];
+                polaznik.Oib = stupci[2];
+                var ok = DateTime.TryParse(stupci[3], out DateTime datum);
+                if (ok)
+                    polaznik.DatumUpisa = datum;
+                ok = double.TryParse(stupci[4], out double dug);
+                if (ok)
+                    polaznik.Dug = dug;
+                polaznici.Add(polaznik);
+            }
+            AzurirajGrid();
         }
     }
 }
